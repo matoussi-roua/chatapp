@@ -1,0 +1,32 @@
+nav{
+  box-sizing: border-box;
+  justify-content: space-between;
+  display: flex;
+  align-items: center;
+  padding: 0px 0vw;
+  color: #00338d;
+  background: rgba(0, 51, 141, 0.16);
+  border-radius: 10px;
+
+}
+.logo{
+  margin: 0px;
+  padding: 20px 10px;
+
+
+}
+nav ul{
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  margin: 0px 0px;
+  padding: 20px 20px;
+  justify-content: space-between;
+
+}
+nav li{
+  align-self: center;
+}
+.active{
+  color: #8ba0c8;
+}

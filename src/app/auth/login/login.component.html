@@ -1,6 +1,6 @@
 <div class="loginpage">
   <div class="wrapper">
-    <h1 class="title">Let Connect</h1>
+    <h1 class="title">Sign In</h1>
 
     <form class="login">
       <input [(ngModel)]="username" name="username" placeholder="Username or Email" type="text">
@@ -8,8 +8,10 @@
       <input [(ngModel)]="password" name="password" placeholder="Password" type="password">
       <br>
       <button (click)="getData()" class="connect" type="button">Connect</button>
+      <a href="src/app/auth/register/register.component.html">Sign Up</a>
     </form>
 
 
   </div>
+
 </div>

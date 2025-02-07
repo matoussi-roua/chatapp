@@ -1,1 +1,20 @@
-<p>register works!</p>
+<div class="loginpage">
+  <div class="wrapper">
+    <h1 class="title">Sigh up</h1>
+
+    <form class="login">
+      <input [(ngModel)]="firstName" name="firstName" placeholder="first name" type="text">
+      <br>
+      <input [(ngModel)]="lastName" name="lastName" placeholder="last name" type="text">
+      <br>
+      <input [(ngModel)]="email" name="email" placeholder="email" type="email">
+      <br>
+      <input [(ngModel)]="password" name="password" placeholder="Password" type="password">
+      <br>
+      <button (click)="getData()" class="connect" type="button">Sign Up</button>
+      <a href="src/app/auth/register/login.component.html">Sign In</a>
+    </form>
+
+  </div>
+
+</div>

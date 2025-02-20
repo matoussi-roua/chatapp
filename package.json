@@ -19,8 +19,6 @@
     "@angular/platform-browser": "~12.2.0",
     "@angular/platform-browser-dynamic": "~12.2.0",
     "@angular/router": "~12.2.0",
-    "@primeng/themes": "^19.0.5",
-    "primeflex": "^4.0.0",
     "primeicons": "^7.0.0",
     "primeng": "^12.2.3",
     "rxjs": "~6.6.0",

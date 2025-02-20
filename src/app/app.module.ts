@@ -15,6 +15,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import {TableModule} from "primeng/table";
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { MenuModule } from "primeng/menu";
+import {HelloModuleModule} from "./hello-module/hello-module.module";
 
 @NgModule({
   declarations: [
@@ -24,8 +25,6 @@ import { MenuModule } from "primeng/menu";
     ContactComponent,
     ActivityComponent,
     ProfileComponent,
-
-
   ],
   imports: [
     BrowserModule,
@@ -37,8 +36,8 @@ import { MenuModule } from "primeng/menu";
     ReactiveFormsModule,
     TableModule,
     SplitButtonModule,
-    MenuModule
-
+    MenuModule,
+    HelloModuleModule
   ],
   providers: [
 

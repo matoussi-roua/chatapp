@@ -1,11 +1,29 @@
 <nav>
   <a class="logo">logo</a>
   <ul>
-    <li class="active" > <a routerLink="/home">HOME</a> </li>
-    <li> <a routerLink="/contact">CONTACTS</a> </li>
-    <li> <a routerLink="/activity">ACTIVITIES</a> </li>
-    <li> <a routerLink ="/profile">PROFILE</a> </li>
-    <li> <a (click)="logout()">LOG OUT</a> </li>
+    <li>
+      <a routerLink="/home">HOME</a>
+    </li>
 
+    <li>
+      <!-- ✅ Make sure `[model]` is correctly passed -->
+      <p-splitbutton label="CRM" icon="pi pi-save" [model]="items"></p-splitbutton>
+    </li>
+
+    <li>
+      <a routerLink="/contact">CONTACTS</a>
+    </li>
+
+    <li>
+      <a routerLink="/activity">ACTIVITIES</a>
+    </li>
+
+    <li>
+      <a routerLink="/profile">PROFILE</a>
+    </li>
+
+    <li>
+      <a (click)="logout()">LOG OUT</a>
+    </li>
   </ul>
 </nav>

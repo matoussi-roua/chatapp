@@ -13,6 +13,8 @@ import { ContactComponent } from './components/contact/contact.component';
 import { ActivityComponent } from './components/activity/activity.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import {TableModule} from "primeng/table";
+import { SplitButtonModule } from 'primeng/splitbutton';
+import { MenuModule } from "primeng/menu";
 
 @NgModule({
   declarations: [
@@ -34,6 +36,8 @@ import {TableModule} from "primeng/table";
     RouterModule,
     ReactiveFormsModule,
     TableModule,
+    SplitButtonModule,
+    MenuModule
 
   ],
   providers: [

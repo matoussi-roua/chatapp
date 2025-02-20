@@ -2,17 +2,22 @@
   <div class="wrapper">
     <h1 class="title">Sigh up</h1>
 
-    <form class="login">
-      <input [(ngModel)]="firstName" name="firstName" placeholder="first name" type="text">
+    <form [formGroup]="registerForm" class="login">
+      <input formControlName="firstName" name="firstName" placeholder="first name" type="text">
       <br>
-      <input [(ngModel)]="lastName" name="lastName" placeholder="last name" type="text">
+      <input formControlName="lastName" name="lastName" placeholder="last name" type="text">
       <br>
-      <input [(ngModel)]="email" name="email" placeholder="email" type="email">
+      <input formControlName="phoneNumber" name="phoneNumber" placeholder="Phone number" type="text">
       <br>
-      <input [(ngModel)]="password" name="password" placeholder="Password" type="password">
+      <input formControlName="email" name="email" placeholder="email" type="email">
       <br>
-      <button (click)="getData()" class="connect" type="button">Sign Up</button>
-      <a href="src/app/auth/register/login.component.html">Sign In</a>
+      <input formControlName="password" name="password" placeholder="Password" type="password">
+      <br>
+
+      <button (click)="register()" class="connect" type="button">Sign Up</button>
+      <a (click)="goToLogin()">Sign In</a> <!-- Fixed navigation -->
+      <!-- Display error message if it exists -->
+      <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
     </form>
 
   </div>

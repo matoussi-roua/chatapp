@@ -1,34 +1,48 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../services/auth/auth.service';
+import { Router } from '@angular/router';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
-interface User {
-  username: string;
-  password: string;
-}
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
-
-
 export class LoginComponent implements OnInit {
-  username: string='';
-  password: string='';
-  constructor() { }
+  loginForm: FormGroup;
+  errorMessage: string = '';
 
-  ngOnInit(): void {
-
+  constructor(private authService: AuthService, private router: Router) {
+    this.loginForm = new FormGroup({
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required, Validators.minLength(8)])
+    });
   }
 
-  getData(): void {
-    console.warn('Username:', this.username, 'Password:', this.password);
+  ngOnInit(): void {}
 
-    const user: User = {
-      username: this.username,
-      password: this.password
-    };
+  login() {
+    if (this.loginForm.invalid) {
+      return;
+    }
 
-    console.log('User Object:', user);
+    this.authService.login(this.loginForm.value).subscribe({
+      next: (response) => {
+        console.log('Login Successful!', response);
+        localStorage.setItem('accessToken', response.accessToken);
+        this.router.navigate(['/home']);
+      },
+      error: (error) => {
+        if (error.status === 400 && error.error.errors) {
+          this.errorMessage = error.error.errors[0];
+        } else {
+          this.errorMessage = 'An unexpected error occurred. Please try again.';
+        }
+      }
+    });
   }
 
+  goToRegister() {
+    this.router.navigate(['/register']);
+  }
 }

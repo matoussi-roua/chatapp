@@ -2,16 +2,26 @@
   <div class="wrapper">
     <h1 class="title">Sign In</h1>
 
-    <form class="login">
-      <input [(ngModel)]="username" name="username" placeholder="Username or Email" type="text">
+    <form [formGroup]="loginForm" class="login">
+      <input formControlName="email" placeholder="Email" type="email">
+      <p *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="error-message">
+        * Enter a valid email.
+      </p>
+
       <br>
-      <input [(ngModel)]="password" name="password" placeholder="Password" type="password">
+
+      <input formControlName="password" placeholder="Password" type="password">
+      <p *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="error-message">
+        * Password must be at least 6 characters long.
+      </p>
+
       <br>
-      <button (click)="getData()" class="connect" type="button">Connect</button>
-      <a href="src/app/auth/register/register.component.html">Sign Up</a>
+
+      <button (click)="login()" class="connect" type="button" [disabled]="loginForm.invalid">Connect</button>
+
+      <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+
+      <a (click)="goToRegister()" class="register-link">Sign Up</a>
     </form>
-
-
   </div>
-
 </div>

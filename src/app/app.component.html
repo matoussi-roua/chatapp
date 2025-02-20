@@ -1,6 +1,4 @@
-<h1>{{title}} </h1>
-<router-outlet></router-outlet>
-<app-navbar></app-navbar>
-<app-home></app-home>
-<app-login></app-login>
-<app-register></app-register>
+<app-navbar *ngIf="showNavbar"></app-navbar>  <!-- Show only when needed -->
+<div class="content">
+  <router-outlet></router-outlet>  <!-- Dynamic Components -->
+</div>

@@ -54,8 +54,33 @@ input {
   color: #000000;
 }
 .loginpage{
-  background-image: url("src/assets/background2.jpg");
+  background-image: url("src/assets/background3.jpg");
   background-size: cover;
   padding: 250px 10%;
   align-items: center;
+}
+/* Add this to your CSS */
+a {
+  cursor: pointer; /* Change the cursor to a pointer when hovering */
+  text-decoration: none; /* Remove underline */
+  color: inherit; /* Ensure the color is inherited from parent */
+}
+
+a:hover {
+  color: blue; /* Change the text color to blue when hovered */
+}
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.register-link {
+  color: blue;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.register-link:hover {
+  color: darkblue;
 }

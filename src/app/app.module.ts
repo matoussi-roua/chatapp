@@ -6,20 +6,35 @@ import { AppComponent } from './app.component';
 import { AuthModule} from './auth/auth.module'
 import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar/navbar.component';
-import { FormsModule } from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {HttpClientModule} from "@angular/common/http";
+import {RouterModule} from "@angular/router";
+import { ContactComponent } from './components/contact/contact.component';
+import { ActivityComponent } from './components/activity/activity.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import {TableModule} from "primeng/table";
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    NavbarComponent
+    NavbarComponent,
+    ContactComponent,
+    ActivityComponent,
+    ProfileComponent,
+
 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     AuthModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule,
+    RouterModule,
+    ReactiveFormsModule,
+    TableModule,
+
   ],
   providers: [
 

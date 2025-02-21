@@ -15,7 +15,12 @@ import { ProfileComponent } from './components/profile/profile.component';
 import {TableModule} from "primeng/table";
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { MenuModule } from "primeng/menu";
-import {HelloModuleModule} from "./hello-module/hello-module.module";
+import { ButtonModule } from 'primeng/button';
+import {TieredMenuModule} from 'primeng/tieredmenu'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {PaginatorModule} from 'primeng/paginator';
+import {MultiSelectModule} from "primeng/multiselect";
+
 
 @NgModule({
   declarations: [
@@ -37,7 +42,13 @@ import {HelloModuleModule} from "./hello-module/hello-module.module";
     TableModule,
     SplitButtonModule,
     MenuModule,
-    HelloModuleModule
+    ButtonModule,
+    TieredMenuModule,
+    BrowserAnimationsModule,
+    PaginatorModule,
+    MultiSelectModule
+
+
   ],
   providers: [
 

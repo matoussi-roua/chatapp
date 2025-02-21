@@ -4,10 +4,14 @@ nav{
   display: flex;
   align-items: center;
   padding: 0px 0vw;
-  color: #00338d;
-  background: rgba(0, 51, 141, 0.16);
+  color: rgba(255, 255, 255, 0.71);
+  background: rgb(80, 80, 80);
   border-radius: 10px;
+  margin: 0 10px;
 
+}
+nav a{
+  color: rgb(255, 255, 255);
 }
 .logo{
   margin: 0px;
@@ -28,5 +32,30 @@ nav li{
   align-self: center;
 }
 .active{
-  color: #8ba0c8;
+  color: rgba(255, 255, 255, 0.71);
+}
+.crmbutton {
+  background-color: #ed7e33 !important; /* Change to your preferred color */
+  color: white !important; /* Text color */
+  border: none !important;
+}
+
+.crmbutton:hover {
+  background-color: #747474 !important; /* Darker shade on hover */
+}
+/* Change the background and text color of the menu items */
+.p-tieredMenu .p-menuitem {
+  background-color: #4CAF50; /* Change background color */
+  color: white; /* Change text color */
+}
+
+/* Change background color of menu items when hovering */
+.p-tieredMenu .p-menuitem:hover {
+  background-color: #45a049; /* Darker green on hover */
+}
+
+/* Change the background color of the selected item */
+.p-tieredMenu .p-menuitem-active {
+  background-color: #388E3C; /* Active item color */
+  color: white; /* Text color of active item */
 }

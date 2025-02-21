@@ -2,33 +2,40 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {LoginCredential} from "../../models/auth/login-credential";
-import {LoginResponse} from "../../models/auth/login-response";
+import {AuthResponse} from "../../models/auth/auth-response";
 import {RegisterCredential} from "../../models/auth/register-credential";
-import {RegisterResponse} from "../../models/auth/register-response";
+import {GlobalService} from "../global/global.service";
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService {
-  private baseUrl = 'http://localhost:8081/api/v1/auth'; // Update if needed
+export class AuthService extends GlobalService{
 
-  constructor(private http: HttpClient) {}
+  private baseUrl = this.getAuthUrl()+'/auth'; // Update if needed
+
+  constructor(private http: HttpClient) {
+    super();
+  }
 
   // 🔹 Login Request
-  login(credentials: LoginCredential): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(`${this.baseUrl}/login`, credentials);
+  login(credentials: LoginCredential): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.baseUrl}/login`, credentials);
   }
 
   // 🔹 Register Request
-  register(credentials: RegisterCredential): Observable<RegisterResponse> {
-    return this.http.post<RegisterResponse>(`${this.baseUrl}/register`, credentials);
+  register(credentials: RegisterCredential): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.baseUrl}/register`, credentials);
   }
 
   // 🔹 Logout Request
   logout(): Observable<void> {
     return this.http.get<void>(`${this.baseUrl}/logout`);
   }
-
+  // Check if user is authenticated
+  isAuthenticated(): boolean {
+    const token = localStorage.getItem('accessToken');
+    return !!token;  // Return true if token exists, else false
+  }
   // 🔹 Refresh Token Request
   refreshToken(expiredToken: string, refreshToken: string): Observable<{ accessToken: string }> {
     return this.http.get<{ accessToken: string }>(`${this.baseUrl}/refresh/${refreshToken}`, {

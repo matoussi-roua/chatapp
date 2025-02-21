@@ -1,18 +1,125 @@
-<p-table [value]="products" stripedRows [tableStyle]="{'min-width': '50rem'}">
-  <ng-template pTemplate="header">
-    <tr>
-      <th>Code</th>
-      <th>Name</th>
-      <th>Category</th>
-      <th>Quantity</th>
-    </tr>
-  </ng-template>
-  <ng-template pTemplate="body" let-product>
-    <tr>
-      <td>{{ product.code }}</td>
-      <td>{{ product.name }}</td>
-      <td>{{ product.category }}</td>
-      <td>{{ product.quantity }}</td>
-    </tr>
-  </ng-template>
-</p-table>
+<div class="header">
+  <div>
+    <p><b>Contacts list</b></p>
+  </div>
+  <div>
+    <button pButton type="button" class="headerbutton p-button-rounded">Add Activity</button>
+    <button pButton type="button" class="headerbutton p-button-rounded">Add Contact</button>
+  </div>
+</div>
+
+<span class="p-input-icon-right searchbar">
+    <i class="pi pi-search"></i>
+    <input type="text" pInputText placeholder="Search" [(ngModel)]="value1"/>
+</span>
+
+<div class="table">
+  <p-table #dt1 [value]="products" stripedRows [tableStyle]="{}" styleClass="custom-table">
+    <ng-template pTemplate="header" class="headertable">
+      <tr>
+        <th></th>
+        <th>
+          <div class="p-d-flex p-jc-between p-ai-center">
+            First Name
+            <p-columnFilter matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+              <ng-template pTemplate="filter">
+                <input pInputText type="text" placeholder="Search by First Name" class="p-column-filter">
+              </ng-template>
+            </p-columnFilter>
+          </div>
+        </th>
+
+        <th>
+          <div class="p-d-flex p-jc-between p-ai-center">
+            Last Name
+            <p-columnFilter matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+              <ng-template pTemplate="filter">
+                <input pInputText type="text" placeholder="Search by Last Name" class="p-column-filter">
+              </ng-template>
+            </p-columnFilter>
+          </div>
+        </th>
+
+        <th>
+          <div class="p-d-flex p-jc-between p-ai-center">
+            Company
+            <p-columnFilter matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+              <ng-template pTemplate="filter">
+                <input pInputText type="text" placeholder="Search by Company" class="p-column-filter">
+              </ng-template>
+            </p-columnFilter>
+          </div>
+        </th>
+
+        <th>
+          <div class="p-d-flex p-jc-between p-ai-center">
+            Job
+            <p-columnFilter matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+              <ng-template pTemplate="filter">
+                <input pInputText type="text" placeholder="Search by Job" class="p-column-filter">
+              </ng-template>
+            </p-columnFilter>
+          </div>
+        </th>
+
+        <th>
+          <div class="p-d-flex p-jc-between p-ai-center">
+            Email
+            <p-columnFilter matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+              <ng-template pTemplate="filter">
+                <input pInputText type="text" placeholder="Search by Email" class="p-column-filter">
+              </ng-template>
+            </p-columnFilter>
+          </div>
+        </th>
+
+        <th>
+          <div class="p-d-flex p-jc-between p-ai-center">
+            Phone
+            <p-columnFilter matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+              <ng-template pTemplate="filter">
+                <input pInputText type="text" placeholder="Search by Phone" class="p-column-filter">
+              </ng-template>
+            </p-columnFilter>
+          </div>
+        </th>
+
+        <th>
+          <div class="p-d-flex p-jc-between p-ai-center">
+            Contact Owner
+            <p-columnFilter matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+              <ng-template pTemplate="filter">
+                <input pInputText type="text" placeholder="Search by Contact Owner" class="p-column-filter">
+              </ng-template>
+            </p-columnFilter>
+          </div>
+        </th>
+
+        <th>
+          <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash" (click)="clear(dt1)"></button>
+        </th>
+      </tr>
+
+    </ng-template>
+    <ng-template pTemplate="body" class="bodytable" let-product>
+      <tr>
+        <td> <button style="border: none; background-color: transparent" class="pi pi-star"></button> </td>
+        <td>{{ product.firstName }}</td>
+        <td>{{ product.lastName }}</td>
+        <td>{{ product.company }}</td>
+        <td>{{ product.job }}</td>
+        <td>{{ product.email }}</td>
+        <td>{{ product.phone }}</td>
+        <td>{{ product.contactOwner }}</td>
+        <td>
+          <i style="font-size: 0.9rem" class="pi pi-pencil"></i>
+          <i style="font-size: 0.9rem" class="pi pi-trash"></i>
+        </td>
+      </tr>
+
+    </ng-template>
+  </p-table>
+</div>
+
+<div><p-paginator [rows]="10" [totalRecords]="120" [rowsPerPageOptions]="[10,20,30]"></p-paginator></div>
+

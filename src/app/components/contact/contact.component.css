@@ -1,0 +1,57 @@
+.header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #f7fbfd;
+  border-radius: 20px;
+  margin:0 10px;
+  margin-top: 5px;
+
+}
+.header p{
+  margin: 0 10px;
+  color: #eb6f21;
+  font-size: larger;
+}
+.headerbutton{
+  background-color: #eb6f21;
+  border: none;
+  margin: 0 10px;
+}
+.headerbutton:hover{
+  background-color: #515151;
+}
+.searchbar{
+  width: 40%;
+  margin-top: 5px;
+}
+.searchbar input{
+  border-radius: 10px;
+  margin: 0 10px;
+  width: 100%;
+  background-color: #e5ecf1;
+  border: 2px solid rgba(53, 154, 204, 0.39);
+  padding: 10px;
+}
+.table{
+  margin:0 10px;
+  margin-top: 5px;
+}
+
+:host ::ng-deep  .p-datatable .p-datatable-thead > tr > th {
+  background-color: #359acc;
+  color: white;
+}
+:host ::ng-deep  .p-datatable .p-datatable-tbody > tr > td >i{
+  background-color: #ffffff;
+  margin: 0 5px;
+  border: #359acc 1px solid;
+  border-radius: 50%;
+  padding: 5px;
+
+}
+.p-button-outlined{
+  color: white;
+}
+

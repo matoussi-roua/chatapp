@@ -1,5 +1,9 @@
-export interface LoginCredential {
-     email: string,
-     password: string
+export class LoginCredential {
+  email: string;
+  password: string;
 
+  constructor(email: string, password: string) {
+    this.email = email;
+    this.password = password;
+  }
 }

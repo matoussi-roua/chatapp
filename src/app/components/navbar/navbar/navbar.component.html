@@ -7,15 +7,8 @@
 
     <li>
       <!-- ✅ Make sure `[model]` is correctly passed -->
-      <p-splitButton label="CRM" icon="pi pi-save" [model]="items"></p-splitButton>
-    </li>
-
-    <li>
-      <a routerLink="/contact">CONTACTS</a>
-    </li>
-
-    <li>
-      <a routerLink="/activity">ACTIVITIES</a>
+      <p-tieredMenu  #menu [model]="items" [popup]="true"></p-tieredMenu>
+      <button class="crmbutton" #btn type="button" label="CRM"  pButton icon="pi pi-item pi-ellipsis-v" (click)="menu.toggle($event)"></button>
     </li>
 
     <li>

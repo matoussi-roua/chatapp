@@ -4,7 +4,7 @@
   </div>
   <div>
     <button pButton type="button" class="headerbutton p-button-rounded">Add Activity</button>
-    <button pButton type="button" class="headerbutton p-button-rounded">Add Contact</button>
+    <button pButton (click)="showAddContactDialog()" type="button" class="headerbutton p-button-rounded">Add Contact</button>
   </div>
 </div>
 
@@ -14,7 +14,7 @@
 </span>
 
 <div class="table">
-  <p-table #dt1 [value]="products" stripedRows [tableStyle]="{}" styleClass="custom-table">
+  <p-table #dt1 [value]="contacts" stripedRows [tableStyle]="{}" styleClass="custom-table">
     <ng-template pTemplate="header" class="headertable">
       <tr>
         <th></th>
@@ -101,20 +101,31 @@
       </tr>
 
     </ng-template>
-    <ng-template pTemplate="body" class="bodytable" let-product>
+    <ng-template pTemplate="body" class="bodytable" let-contact>
       <tr>
         <td> <button  class="pi pi-star"></button> </td>
-        <td>{{ product.firstName }}</td>
-        <td>{{ product.lastName }}</td>
-        <td>{{ product.company }}</td>
-        <td>{{ product.job }}</td>
-        <td>{{ product.email }}</td>
-        <td>{{ product.phone }}</td>
-        <td>{{ product.contactOwner }}</td>
+        <td>{{ contact.firstName }}</td>
+        <td>{{ contact.lastName }}</td>
+        <td>{{ contact.company }}</td>
+        <td>{{ contact.job }}</td>
+        <td>{{ contact.email }}</td>
+        <td>{{ contact.phone }}</td>
+        <td>{{ contact.contactOwner }}</td>
         <td>
           <i  class="pi pi-pencil"></i>
-          <i  class="pi pi-trash"></i>
+          <i (click)="showDeleteContactDialog(contact)" class="pi pi-trash"></i>
+          <!-- delete contact modal :-->
+          <p-dialog header="Header" [(visible)]="displayDeleteContact" [breakpoints]="{'960px': '75vw'}" [style]="{width: '50vw'}"
+                    [draggable]="false" [resizable]="true">
+            <p>Do you want to delete {{contactToDelete?.firstName}} {{contactToDelete?.lastName}}?</p>
+            <ng-template pTemplate="footer">
+              <p-button (click)="displayDeleteContact=false" label="No" styleClass="p-button-text"></p-button>
+              <p-button (click)="deleteContact()" label="Yes" styleClass="p-button-text"></p-button>
+            </ng-template>
+          </p-dialog>
         </td>
+
+
       </tr>
 
     </ng-template>
@@ -123,3 +134,64 @@
 
 <div><p-paginator [rows]="10" [totalRecords]="120" [rowsPerPageOptions]="[10,20,30]"></p-paginator></div>
 
+<!--Add contact modal :-->
+<p-dialog header="Add Contact" [(visible)]="displayAddContact" [modal]="true" [style]="{width: '50vw'}" [maximizable]="true"
+          [draggable]="false" [resizable]="false">
+  <div class="p-fluid">
+    <div class="p-field">
+      <label for="firstName">First Name</label>
+      <input id="firstName" pInputText [(ngModel)]="newContact.firstName" />
+    </div>
+    <div class="p-field">
+      <label for="lastName">Last Name</label>
+      <input id="lastName" pInputText [(ngModel)]="newContact.lastName" />
+    </div>
+    <div class="p-field">
+      <label for="email">Email</label>
+      <input id="email" pInputText [(ngModel)]="newContact.email" />
+    </div>
+    <div class="p-field">
+      <label for="phone">Phone</label>
+      <input id="phone" pInputText [(ngModel)]="newContact.phone" />
+    </div>
+    <div class="p-field">
+      <label for="company">Company</label>
+      <input id="company" pInputText [(ngModel)]="newContact.company" />
+    </div>
+    <div class="p-field">
+      <label for="jobTitle">Job Title</label>
+      <input id="jobTitle" pInputText [(ngModel)]="newContact.jobTitle" />
+    </div>
+
+    <!-- Address Fields -->
+    <h3>Address Details</h3>
+    <div class="p-field">
+      <label for="address">Street Address</label>
+      <input id="address" pInputText [(ngModel)]="newAddress.address" />
+    </div>
+    <div class="p-field">
+      <label for="city">City</label>
+      <input id="city" pInputText [(ngModel)]="newAddress.city" />
+    </div>
+    <div class="p-field">
+      <label for="state">State</label>
+      <input id="state" pInputText [(ngModel)]="newAddress.state" />
+    </div>
+    <div class="p-field">
+      <label for="country">Country</label>
+      <input id="country" pInputText [(ngModel)]="newAddress.country" />
+    </div>
+    <div class="p-field">
+      <label for="zipCode">Zip Code</label>
+      <input id="zipCode" pInputText [(ngModel)]="newAddress.zipCode" />
+    </div>
+    <p-footer>
+      <button pButton class="headerbutton p-button-rounded" type="button" label="Save contact" (click)="saveContact()"></button>
+      <button pButton class="headerbutton p-button-rounded" type="button" label="Cancel" (click)="closeDialog()"></button>
+    </p-footer>
+
+  </div>
+  <ng-template pTemplate="footer">
+    <p-button icon="pi pi-check" (click)="displayAddContact=false" label="Ok" styleClass="p-button-text"></p-button>
+  </ng-template>
+</p-dialog>

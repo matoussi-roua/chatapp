@@ -65,5 +65,24 @@
 
 .pi-star {
   border: none;
-  background-color: transparent
+  background-color: transparent;
+}
+
+.p-fluid .p-field{
+  justify-content: space-between;
+  border: rgba(53, 154, 204, 0.24) 1px solid;
+  padding: 10px;
+  margin: 5px;
+  align-items: center;
+  display: flex;
+}
+p-footer{
+  display: flex;
+  justify-content: space-between;
+}
+.p-fluid .p-field input{
+  width: 40%;
+  border: #359acc 0.5px solid;
+  padding: 5px;
+  border-radius: 10px;
 }

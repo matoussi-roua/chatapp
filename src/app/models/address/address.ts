@@ -12,4 +12,5 @@ export class Address {
     this.country = country;
     this.zipCode = zipCode;
   }
+
 }

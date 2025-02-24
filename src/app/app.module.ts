@@ -20,6 +20,10 @@ import {TieredMenuModule} from 'primeng/tieredmenu'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {PaginatorModule} from 'primeng/paginator';
 import {MultiSelectModule} from "primeng/multiselect";
+import {DialogModule} from 'primeng/dialog';
+
+
+
 
 
 @NgModule({
@@ -46,7 +50,8 @@ import {MultiSelectModule} from "primeng/multiselect";
     TieredMenuModule,
     BrowserAnimationsModule,
     PaginatorModule,
-    MultiSelectModule
+    MultiSelectModule,
+    DialogModule
 
 
   ],

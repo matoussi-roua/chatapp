@@ -4,16 +4,15 @@
 
     <form [formGroup]="loginForm" class="login">
       <input formControlName="email" placeholder="Email" type="email">
-      <p *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="error-message">
-        * Enter a valid email.
-      </p>
+<!--      <p *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="error-message">-->
+<!--        * Enter a valid email.-->
+<!--      </p>-->
 
       <br>
 
       <input formControlName="password" placeholder="Password" type="password">
-      <p *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="error-message">
-        * Password must be at least 6 characters long.
-      </p>
+<!--      <p *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="error-message">-->
+<!--      </p>-->
 
       <br>
 

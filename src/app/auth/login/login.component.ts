@@ -42,7 +42,9 @@ export class LoginComponent implements OnInit {
       },
       error: (error) => {
         if (error.status === 400 && error.error.errors) {
-          this.errorMessage = error.error.errors[0];
+          //this.errorMessage = error.error.errors[0];
+          this.errorMessage = 'Bad credentials';
+
         } else {
           this.errorMessage = 'An unexpected error occurred. Please try again.';
         }

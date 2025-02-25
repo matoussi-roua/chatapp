@@ -1,0 +1,99 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #f7fbfd;
+  border-radius: 20px;
+  margin: 0 10px;
+  margin-top: 5px;
+
+}
+
+.header p {
+  margin: 0 10px;
+  color: #eb6f21;
+  font-size: larger;
+}
+
+.headerbutton {
+  background-color: #eb6f21;
+  border: none;
+  margin: 0 10px;
+}
+
+.headerbutton:hover {
+  background-color: #515151;
+}
+
+.searchbar {
+  width: 40%;
+  margin-top: 5px;
+}
+
+.searchbar input {
+  border-radius: 10px;
+  margin: 0 10px;
+  width: 100%;
+  background-color: #e5ecf1;
+  border: 2px solid rgba(53, 154, 204, 0.39);
+  padding: 10px;
+}
+
+.table {
+  margin: 0 10px;
+  margin-top: 5px;
+}
+
+:host ::ng-deep .p-datatable .p-datatable-thead > tr > th {
+  background-color: #359acc;
+  color: white;
+}
+
+:host ::ng-deep .p-datatable .p-datatable-tbody > tr > td > i {
+  background-color: #ffffff;
+  margin: 0 5px;
+  border: #359acc 1px solid;
+  border-radius: 50%;
+  padding: 5px;
+
+}
+
+.p-button-outlined {
+  color: white;
+}
+
+.p-fluid .p-field{
+  justify-content: space-between;
+  border: rgba(53, 154, 204, 0.24) 1px solid;
+  padding: 10px;
+  margin: 5px;
+  align-items: center;
+  display: flex;
+}
+p-footer{
+  display: flex;
+  justify-content: space-between;
+}
+.p-fluid .p-field input {
+  width: 40%;
+  border: #359acc 0.5px solid;
+  padding: 5px;
+  border-radius: 10px;
+}
+.pi-star {
+  border: none;
+  background-color: transparent;
+}
+.emails li {
+  display: inline-block; /* Makes the border fit the text */
+  border-radius: 15px;
+  list-style: none;
+  border: 1px solid rgb(157, 154, 154);
+  background-color: rgba(238, 236, 236, 0.23);
+  padding: 2px 5px; /* Adjust padding for better appearance */
+}
+.required{
+  color: red;
+}
+

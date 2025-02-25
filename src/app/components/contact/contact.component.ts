@@ -77,7 +77,7 @@ export class ContactComponent implements OnInit {
         (response) => {
           console.warn(response);  // Response after successful deletion
           // Remove the contact from the list locally after deletion
-          this.contacts = this.contacts.filter(contact => contact.email !== this.contactToDelete?.email);
+          //this.contacts = this.contacts.filter(contact => contact.email !== this.contactToDelete?.email);
           this.closeDialog();  // Close the modal
         },
         (error) => {

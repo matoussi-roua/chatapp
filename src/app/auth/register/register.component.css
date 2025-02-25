@@ -4,7 +4,7 @@
   align-items: center; /* Aligns everything (title & form) to the right */
   justify-content: space-between;
   gap: 20px;
-  margin: auto ;
+  margin: auto;
   text-align: center; /* Ensures text is aligned properly */
   border: 1px solid #505050;
   width: 50%;
@@ -15,13 +15,12 @@
 }
 
 .title {
-  font-family: Montserrat ;
+  font-family: Montserrat;
   font-size: 3rem;
   font-weight: lighter;
   text-align: center;
 
 }
-
 
 
 .login {
@@ -49,16 +48,19 @@ input {
   background: #0261df;
   color: white;
 }
+
 .connect:hover {
   background: #5191e8;
   color: #000000;
 }
-.loginpage{
+
+.loginpage {
   background-image: url("src/assets/background3.jpg");
   background-size: cover;
   padding: 250px 10%;
   align-items: center;
 }
+
 /* Add this to your CSS */
 a {
   cursor: pointer; /* Change the cursor to a pointer when hovering */
@@ -68,4 +70,47 @@ a {
 
 a:hover {
   color: blue; /* Change the text color to blue when hovered */
+}
+
+.required {
+  color: red;
+  font-size: medium;
+}
+
+.pi-eye, .pi-eye-slash {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+/* Password container styling */
+.password-container {
+  position: relative;
+  width: 100%;
+}
+
+/* Eye icon positioning */
+.password-container .pi {
+  position: absolute;
+  top: 50%;
+  right: 15%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #444e62;
+}
+
+/* Input field styling */
+
+
+/* For password field */
+input[type="password"], input[type="text"] {
+  padding-right: 30px; /* Make space for the eye icon */
+}
+
+/* Icon color */
+.pi-eye, .pi-eye-slash {
+  font-size: 1.2rem;
+  color: #444e62;
+  margin-right:70px ;
 }

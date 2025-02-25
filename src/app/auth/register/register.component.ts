@@ -12,6 +12,7 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 export class RegisterComponent implements OnInit {
   errorMessage: string = ''; // Store error message
   registerForm: FormGroup;
+  passwordVisible: boolean = false;
 
   constructor(private authService: AuthService, private router: Router) {
     this.registerForm = new FormGroup({
@@ -58,5 +59,8 @@ export class RegisterComponent implements OnInit {
 
   goToLogin() {
     this.router.navigate(['/login']);  // Navigate to login page
+  }
+  togglePasswordVisibility() {
+    this.passwordVisible = !this.passwordVisible;
   }
 }

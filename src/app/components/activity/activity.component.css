@@ -96,4 +96,7 @@ p-footer{
 .required{
   color: red;
 }
+input {
+  width: 100%; /* Make all inputs take full width of their parent */
+}
 

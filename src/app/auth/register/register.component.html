@@ -1,25 +1,62 @@
 <div class="loginpage">
   <div class="wrapper">
-    <h1 class="title">Sigh up</h1>
+    <h1 class="title">Sign up</h1>
 
     <form [formGroup]="registerForm" class="login">
-      <input formControlName="firstName" name="firstName" placeholder="first name" type="text">
-      <br>
-      <input formControlName="lastName" name="lastName" placeholder="last name" type="text">
-      <br>
-      <input formControlName="phoneNumber" name="phoneNumber" placeholder="Phone number" type="text">
-      <br>
-      <input formControlName="email" name="email" placeholder="email" type="email">
-      <br>
-      <input formControlName="password" name="password" placeholder="Password" type="password">
+      <!-- First Name -->
+      <input formControlName="firstName" name="firstName" placeholder="First name" type="text">
+      <div class="required" *ngIf="registerForm.get('firstName')?.touched && registerForm.get('firstName')?.invalid">
+        <small *ngIf="registerForm.get('firstName')?.hasError('required')">First name is required.</small>
+        <small *ngIf="registerForm.get('firstName')?.hasError('minlength')">First name must be at least 5 characters
+          long.</small>
+      </div>
       <br>
 
+      <!-- Last Name -->
+      <input formControlName="lastName" name="lastName" placeholder="Last name" type="text">
+      <div class="required" *ngIf="registerForm.get('lastName')?.touched && registerForm.get('lastName')?.invalid">
+        <small *ngIf="registerForm.get('lastName')?.hasError('required')">Last name is required.</small>
+        <small *ngIf="registerForm.get('lastName')?.hasError('minlength')">Last name must be at least 5 characters
+          long.</small>
+      </div>
+      <br>
+
+      <!-- Phone Number -->
+      <input formControlName="phoneNumber" name="phoneNumber" placeholder="Phone number" type="text">
+      <div class="required"
+           *ngIf="registerForm.get('phoneNumber')?.touched && registerForm.get('phoneNumber')?.invalid">
+        <small *ngIf="registerForm.get('phoneNumber')?.hasError('required')">Phone number is required.</small>
+        <small *ngIf="registerForm.get('phoneNumber')?.hasError('minlength')">Phone number must be at least 6 characters
+          long.</small>
+      </div>
+      <br>
+
+      <!-- Email -->
+      <input formControlName="email" name="email" placeholder="Email" type="email">
+      <div class="required" *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.invalid">
+        <small *ngIf="registerForm.get('email')?.hasError('required')">Email is required.</small>
+        <small *ngIf="registerForm.get('email')?.hasError('email')">Please enter a valid email address.</small>
+      </div>
+      <br>
+      <!--password -->
+      <div class="password-container">
+        <input [type]="passwordVisible ? 'text' : 'password'" formControlName="password" name="password"
+               placeholder="Password">
+        <i class="pi" [ngClass]="passwordVisible ? 'pi-eye' : 'pi-eye-slash'" (click)="togglePasswordVisibility()"></i>
+      </div>
+      <div class="required" *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.invalid">
+        <small *ngIf="registerForm.get('password')?.hasError('required')">Password is required.</small>
+        <small *ngIf="registerForm.get('password')?.hasError('minlength')">Password must be at least 8 characters
+          long.</small>
+      </div>
+      <br>
+
+      <!-- Submit Button -->
       <button (click)="register()" class="connect" type="button">Sign Up</button>
       <a (click)="goToLogin()">Sign In</a> <!-- Fixed navigation -->
+
       <!-- Display error message if it exists -->
-      <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+      <p  *ngIf="errorMessage" class="error-message required">{{ errorMessage }}</p>
     </form>
-
   </div>
-
 </div>

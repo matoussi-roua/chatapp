@@ -28,10 +28,11 @@ export class ContactService extends GlobalService {
     return this.http.get<Contact[]>(`${this.baseUrl}/all`);
   }
 
-  // Delete contact by email
+// Delete contact by email
   deleteContactByEmail(email: string): Observable<string> {
-    return this.http.put<string>(`${this.baseUrl}/delete/${email}`, { responseType: 'text' });
+    return this.http.delete(`${this.baseUrl}/delete/${email}`, { responseType: 'text' });  // Correct HTTP method (DELETE) and response type (text)
   }
+
 
   // Filter contacts
   filterContacts(firstName?: string, lastName?: string, email?: string, phone?: string, company?: string, jobTitle?: string): Observable<Contact[]> {

@@ -80,7 +80,7 @@ p-footer{
   display: flex;
   justify-content: space-between;
 }
-.p-fluid .p-field .input{
+.p-fluid .p-field input{
   width: 40%;
   border: #359acc 0.5px solid;
   padding: 5px;

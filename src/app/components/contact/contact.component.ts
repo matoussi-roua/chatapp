@@ -44,6 +44,8 @@ export class ContactComponent implements OnInit {
     this.displayAddContact = false;// Set display to false to close the modal
     this.displayDeleteContact = false;
     this.newContact = {} as Contact;
+    this.newAddress = {} as Address;
+    window.location.reload(); // Reload the page after successful deletion
 
   }
 
@@ -65,6 +67,7 @@ export class ContactComponent implements OnInit {
         this.contacts.push(contact);  // Add the newly created contact to the list
         console.warn(contact);
         this.closeDialog();  // Close the modal dialog
+
       },
       (error) => {
         console.error('Error saving contact:', error);

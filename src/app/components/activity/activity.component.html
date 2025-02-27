@@ -62,7 +62,8 @@
 </span>
 <!-- table of acvtivities -->
 <div class="table">
-  <p-table #dt1 [value]="activities" stripedRows [tableStyle]="{}" styleClass="custom-table">
+  <p-table #dt1 [value]="activities" stripedRows [tableStyle]="{}" styleClass="custom-table" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" responsiveLayout="scroll"
+           currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[5,10,25,50]">
     <ng-template pTemplate="header" class="headertable">
       <tr>
         <th></th>
@@ -152,5 +153,6 @@
         </td>
 
     </ng-template>
+
   </p-table>
 </div>

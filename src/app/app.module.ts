@@ -28,6 +28,7 @@ import {CalendarModule} from 'primeng/calendar';
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +36,7 @@ import {CalendarModule} from 'primeng/calendar';
     NavbarComponent,
     ContactComponent,
     ActivityComponent,
-    ProfileComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

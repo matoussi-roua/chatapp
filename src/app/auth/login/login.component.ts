@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
       next: (response) => {
         console.log('Login Successful!', response);
         localStorage.setItem('accessToken', response.token); // Assuming accessToken is in the response
-        this.router.navigate(['']);
+        this.router.navigate(['/contact']);
       },
       error: (error) => {
         if (error.status === 400 && error.error.errors) {

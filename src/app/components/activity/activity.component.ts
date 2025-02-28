@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Activity} from "../../models/activity/activity";
 import {Table} from "primeng/table";
 import {ActivityService} from "../../services/activity/activity.service";
@@ -17,10 +17,18 @@ export class ActivityComponent implements OnInit {
   activityToDelete: Activity | null = null;
   errorMessage: string = '';
   participantsInput: string = ''; // Stores the input as a string
+  filterData: any = {
+    date: '',
+    type: '',
+    subject: '',
+    note: ''
+  };
 
+  @ViewChild('dt1') dt1: Table | undefined; // Reference to the table component
+  displayEditActivity: boolean = false;
+  existingActivity: Activity = {} as Activity;
 
   constructor(private activityService: ActivityService) {
-
   }
 
   ngOnInit(): void {
@@ -32,7 +40,6 @@ export class ActivityComponent implements OnInit {
       (error) => {
         console.error('Error fetching contacts:', error);
       });
-
   }
 
   showAddActivityDialog() {
@@ -43,7 +50,6 @@ export class ActivityComponent implements OnInit {
     if (!this.newActivity.date || !this.newActivity.type) {
       console.log("Validation failed: Missing required fields!");
       this.errorMessage = 'Missing required fields!';
-
       return;
     }
     this.updateParticipants(); // Ensure participantEmails is an array
@@ -54,7 +60,6 @@ export class ActivityComponent implements OnInit {
         this.displayAddActivity = false;
         this.newActivity = {} as Activity;
         window.location.reload(); // Reload the page after successful deletion
-
       },
       error: (error) => {
         if (error.status === 400 && error.error.errors) {
@@ -64,25 +69,21 @@ export class ActivityComponent implements OnInit {
         }
       }
     });
-
   }
 
   closeDialog() {
     this.displayAddActivity = false;
     this.displayDeleteActivity = false;
-
   }
 
   clear(dt1: Table) {
-    dt1.clear();
+    dt1.clear();  // Clear the table filters
   }
 
   showDeleteActivityDialog(activity: Activity) {
     this.activityToDelete = activity;
     this.displayDeleteActivity = true;
-
   }
-
 
   deleteActivity() {
     if (this.activityToDelete) {
@@ -109,5 +110,53 @@ export class ActivityComponent implements OnInit {
       this.newActivity.participantEmails = [];
     }
   }
+
+
+  clearFilter() {
+    // Reset the filter data for all fields dynamically
+    for (let key in this.filterData) {
+      if (this.filterData.hasOwnProperty(key)) {
+        this.filterData[key] = '';
+        if (this.dt1) {
+          this.dt1.filter('', key, 'contains'); // Clears the filter for each field dynamically
+        }
+      }
+      this.dt1?.reset();
+      window.location.reload();
+
+    }
+  }
+
+  onInputChange(event: any, field: string): void {
+    const value = event.target.value;
+    this.dt1?.filter(value, field, 'contains');
+  }
+
+  onInputSearch(event: any): void {
+    const value = event.target.value.trim(); // Trim spaces for cleaner input
+
+    if (value === '') {
+      // If input is empty, reload all activities
+      this.activityService.getAllActivities().subscribe({
+        next: (data) => {
+          this.activities = data; // Restore the full list
+        },
+        error: (err) => {
+          console.error('Error fetching all activities:', err);
+        }
+      });
+    } else {
+      // Perform filtering when there's input
+      this.activityService.filterActivitiesByValue(value).subscribe({
+        next: (data) => {
+          this.activities = data; // Update the list with filtered results
+        },
+        error: (err) => {
+          console.error('Error filtering activities:', err);
+        }
+      });
+    }
+  }
+
 
 }

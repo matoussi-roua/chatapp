@@ -24,8 +24,8 @@
     </div>
     <div class="p-field">
       <label for="participants">Participants</label>
-<!--      <input class="input" id="participants" (change)="updateParticipants()" pInputText-->
-<!--             [(ngModel)]="newActivity.participantEmails"/>-->
+      <!--      <input class="input" id="participants" (change)="updateParticipants()" pInputText-->
+      <!--             [(ngModel)]="newActivity.participantEmails"/>-->
       <input class="input" id="participants" pInputText [(ngModel)]="participantsInput" (input)="updateParticipants()"/>
 
     </div>
@@ -51,77 +51,78 @@
 
   </div>
   <ng-template pTemplate="footer">
-    <p class="required">{{errorMessage}}</p>
+    <p class="required">{{ errorMessage }}</p>
   </ng-template>
 </p-dialog>
 
-<!-- search bar-->
+<!-- Search Bar -->
 <span class="p-input-icon-right searchbar">
-    <i class="pi pi-search"></i>
-    <input type="text" pInputText placeholder="Search" [(ngModel)]="value2"/>
+  <i class="pi pi-search"></i>
+  <input (input)="onInputSearch($event)" type="text" pInputText placeholder="Search" [(ngModel)]="value2" />
 </span>
+
 <!-- table of acvtivities -->
 <div class="table">
   <p-table #dt1 [value]="activities" stripedRows [tableStyle]="{}" styleClass="custom-table">
     <ng-template pTemplate="header" class="headertable">
       <tr>
         <th></th>
-        <th>
+
+        <th pSortableColumn="date">
           <div class="p-d-flex p-jc-between p-ai-center">
-            Date
-            <p-columnFilter matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false"
-                            [showAddButton]="false">
-              <ng-template pTemplate="filter">
-                <input pInputText type="text" placeholder="Search by Date" class="p-column-filter">
-              </ng-template>
-            </p-columnFilter>
+            Date<p-sortIcon field="date"></p-sortIcon>
+
           </div>
         </th>
 
         <th>
           <div class="p-d-flex p-jc-between p-ai-center">
             Participants
-            <p-columnFilter matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false"
-                            [showAddButton]="false">
-              <ng-template pTemplate="filter">
-                <input pInputText type="text" placeholder="Search by Participant" class="p-column-filter">
-              </ng-template>
-            </p-columnFilter>
+
           </div>
         </th>
-
-        <th>
+        <th pSortableColumn="subject">
           <div class="p-d-flex p-jc-between p-ai-center">
-            Subject
-            <p-columnFilter matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false"
-                            [showAddButton]="false">
-              <ng-template pTemplate="filter">
-                <input pInputText type="text" placeholder="Search by Subject" class="p-column-filter">
-              </ng-template>
-            </p-columnFilter>
+            Subject<p-sortIcon field="subject"></p-sortIcon>
+
           </div>
         </th>
 
-        <th>
+
+        <th pSortableColumn="note">
           <div class="p-d-flex p-jc-between p-ai-center">
-            Notes
-            <p-columnFilter matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false"
-                            [showAddButton]="false">
-              <ng-template pTemplate="filter">
-                <input pInputText type="text" placeholder="Search by Note" class="p-column-filter">
-              </ng-template>
-            </p-columnFilter>
+            Notes<p-sortIcon field="note"></p-sortIcon>
+
           </div>
         </th>
-
 
         <th>
           <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash"
-                  (click)="clear(dt1)"></button>
+                  (click)="clearFilter()"></button>
         </th>
       </tr>
+      <tr>
+        <th></th>
 
+        <th>
+          <input pInputText type="text" (input)="onInputChange($event, 'date')"
+                 [(ngModel)]="filterData.date" placeholder="Search by Date" class="p-column-filter">
+
+        </th>
+        <th></th>
+
+        <th>
+          <input pInputText type="text" (input)="onInputChange($event, 'subject')"
+                 [(ngModel)]="filterData.subject" placeholder="Search by Subject" class="p-column-filter">
+        </th>
+        <th>
+          <input pInputText type="text" (input)="onInputChange($event, 'note')"
+                 [(ngModel)]="filterData.note" placeholder="Search by Note" class="p-column-filter">
+        </th>
+        <th></th>
+      </tr>
     </ng-template>
+
     <ng-template pTemplate="body" class="bodytable" let-Activity>
       <tr>
         <td>
@@ -134,15 +135,14 @@
               {{ email }}
             </li>
           </ul>
+        </td>
         <td>{{ Activity.subject }}</td>
         <td>{{ Activity.note }}</td>
         <td>
           <i class="pi pi-pencil"></i>
           <i (click)="showDeleteActivityDialog(Activity)" class="pi pi-trash"></i>
-          <!-- delete Activity modal :-->
           <p-dialog header="Header" [(visible)]="displayDeleteActivity" [breakpoints]="{'960px': '75vw'}"
-                    [style]="{width: '50vw'}"
-                    [draggable]="false" [resizable]="true">
+                    [style]="{width: '50vw'}" [draggable]="false" [resizable]="true">
             <p>Do you want to delete {{ activityToDelete?.subject }} </p>
             <ng-template pTemplate="footer">
               <p-button (click)="displayDeleteActivity=false" label="No" styleClass="p-button-text"></p-button>
@@ -150,7 +150,61 @@
             </ng-template>
           </p-dialog>
         </td>
-
+      </tr>
     </ng-template>
   </p-table>
 </div>
+<!-- Edit activity modal -->
+
+<!--<p-dialog header="Edit Activity" [(visible)]="displayEditActivity" [modal]="true" [style]="{width: '50vw'}"-->
+<!--          [maximizable]="true" [draggable]="false" [resizable]="false">-->
+<!--  <div class="p-fluid">-->
+<!--    <div class="p-field">-->
+<!--      <label for="date">Date<span class="required">*</span></label>-->
+<!--      <p-calendar id="date" class="input" [(ngModel)]="newActivity.date" dateFormat="yy-mm-dd"-->
+<!--                  [placeholder]="existingActivity?.date"></p-calendar>-->
+<!--    </div>-->
+
+<!--    <div class="p-field">-->
+<!--      <label for="type">Type<span class="required">*</span></label>-->
+<!--      <input class="input" id="type" pInputText [(ngModel)]="newActivity.type"-->
+<!--             [placeholder]="existingActivity?.type"/>-->
+<!--    </div>-->
+
+<!--    <div class="p-field">-->
+<!--      <label for="participants">Participants</label>-->
+<!--      <input class="input" id="participants" pInputText [(ngModel)]="participantsInput"-->
+<!--             (input)="updateParticipants()" [placeholder]="existingActivity?.participantEmails"/>-->
+<!--    </div>-->
+
+<!--    <div class="p-field">-->
+<!--      <label for="subject">Subject</label>-->
+<!--      <input class="input" id="subject" pInputText [(ngModel)]="newActivity.subject"-->
+<!--             [placeholder]="existingActivity?.subject"/>-->
+<!--    </div>-->
+
+<!--    <div class="p-field">-->
+<!--      <label for="note">Notes</label>-->
+<!--      <input class="input" id="note" pInputText [(ngModel)]="newActivity.note"-->
+<!--             [placeholder]="existingActivity?.note"/>-->
+<!--    </div>-->
+
+<!--    <div class="p-field">-->
+<!--      <label for="documents">Documents</label>-->
+<!--      <input class="input" id="documents" pInputText [(ngModel)]="newActivity.documents"-->
+<!--             [placeholder]="existingActivity?.documents"/>-->
+<!--    </div>-->
+
+<!--    <p-footer>-->
+<!--      <button pButton class="headerbutton p-button-rounded" type="button" label="Save Activity"-->
+<!--              (click)="saveActivity()"></button>-->
+<!--      <button pButton class="headerbutton p-button-rounded" type="button" label="Cancel"-->
+<!--              (click)="closeDialog()"></button>-->
+<!--    </p-footer>-->
+<!--  </div>-->
+
+<!--  <ng-template pTemplate="footer">-->
+<!--    <p class="required">{{ errorMessage }}</p>-->
+<!--  </ng-template>-->
+<!--</p-dialog>-->
+

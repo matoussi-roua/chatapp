@@ -4,13 +4,14 @@
   </div>
   <div>
     <button pButton type="button" class="headerbutton p-button-rounded">Add Activity</button>
-    <button pButton (click)="showAddContactDialog()" type="button" class="headerbutton p-button-rounded">Add Contact</button>
+    <button pButton (click)="showAddContactDialog()" type="button" class="headerbutton p-button-rounded">Add Contact
+    </button>
   </div>
 </div>
 
 <span class="p-input-icon-right searchbar">
     <i class="pi pi-search"></i>
-    <input type="text" pInputText placeholder="Search" [(ngModel)]="value1"/>
+    <input (input)="onInputSearch($event)" type="text" pInputText placeholder="Search" [(ngModel)]="value1"/>
 </span>
 
 <div class="table">
@@ -18,106 +19,120 @@
     <ng-template pTemplate="header" class="headertable">
       <tr>
         <th></th>
-        <th>
+
+        <th pSortableColumn="firstName">
           <div class="p-d-flex p-jc-between p-ai-center">
             First Name
-            <p-columnFilter matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
-              <ng-template pTemplate="filter">
-                <input pInputText type="text" placeholder="Search by First Name" class="p-column-filter">
-              </ng-template>
-            </p-columnFilter>
+            <p-sortIcon field="firstName"></p-sortIcon>
+
           </div>
         </th>
 
-        <th>
+        <th pSortableColumn="lastName">
           <div class="p-d-flex p-jc-between p-ai-center">
             Last Name
-            <p-columnFilter matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
-              <ng-template pTemplate="filter">
-                <input pInputText type="text" placeholder="Search by Last Name" class="p-column-filter">
-              </ng-template>
-            </p-columnFilter>
+            <p-sortIcon field="lastName"></p-sortIcon>
+
           </div>
         </th>
 
-        <th>
+        <th pSortableColumn="company">
           <div class="p-d-flex p-jc-between p-ai-center">
             Company
-            <p-columnFilter matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
-              <ng-template pTemplate="filter">
-                <input pInputText type="text" placeholder="Search by Company" class="p-column-filter">
-              </ng-template>
-            </p-columnFilter>
+            <p-sortIcon field="company"></p-sortIcon>
+
           </div>
         </th>
 
-        <th>
+        <th pSortableColumn="jobTitle">
           <div class="p-d-flex p-jc-between p-ai-center">
-            Job
-            <p-columnFilter matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
-              <ng-template pTemplate="filter">
-                <input pInputText type="text" placeholder="Search by Job" class="p-column-filter">
-              </ng-template>
-            </p-columnFilter>
+            job Title
+            <p-sortIcon field="jobTitle"></p-sortIcon>
           </div>
         </th>
 
-        <th>
+        <th pSortableColumn="email">
           <div class="p-d-flex p-jc-between p-ai-center">
             Email
-            <p-columnFilter matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
-              <ng-template pTemplate="filter">
-                <input pInputText type="text" placeholder="Search by Email" class="p-column-filter">
-              </ng-template>
-            </p-columnFilter>
+            <p-sortIcon field="email"></p-sortIcon>
           </div>
         </th>
 
-        <th>
+        <th pSortableColumn="phone">
           <div class="p-d-flex p-jc-between p-ai-center">
             Phone
-            <p-columnFilter matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
-              <ng-template pTemplate="filter">
-                <input pInputText type="text" placeholder="Search by Phone" class="p-column-filter">
-              </ng-template>
-            </p-columnFilter>
+            <p-sortIcon field="phone"></p-sortIcon>
           </div>
         </th>
 
-        <th>
+        <th pSortableColumn="contactOwnerEmail">
           <div class="p-d-flex p-jc-between p-ai-center">
             Contact Owner
-            <p-columnFilter matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
-              <ng-template pTemplate="filter">
-                <input pInputText type="text" placeholder="Search by Contact Owner" class="p-column-filter">
-              </ng-template>
-            </p-columnFilter>
+            <p-sortIcon field="contactOwnerEmail"></p-sortIcon>
           </div>
         </th>
 
         <th>
-          <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash" (click)="clear(dt1)"></button>
+          <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash"
+                  (click)="clearFilter()"></button>
         </th>
+
+      <tr>
+        <th></th>
+
+        <th>
+          <input pInputText type="text" (input)="onInputChange($event, 'firstName')"
+                 [(ngModel)]="filterData.firstName" placeholder="Search by first Name" class="p-column-filter">
+
+        </th>
+        <th>
+          <input pInputText type="text" (input)="onInputChange($event, 'lastName')"
+                 [(ngModel)]="filterData.lastName" placeholder="Search by last Name" class="p-column-filter">
+        </th>
+        <th>
+          <input pInputText type="text" (input)="onInputChange($event, 'company')"
+                 [(ngModel)]="filterData.company" placeholder="Search by Company" class="p-column-filter">
+        </th>
+      <th>
+        <input pInputText type="text" (input)="onInputChange($event, 'jobTitle')"
+               [(ngModel)]="filterData.jobTitle" placeholder="Search by Job Title" class="p-column-filter">
+      </th>
+      <th>
+        <input pInputText type="text" (input)="onInputChange($event, 'email')"
+               [(ngModel)]="filterData.email" placeholder="Search by Email" class="p-column-filter">
+      </th>
+      <th>
+        <input pInputText type="text" (input)="onInputChange($event, 'phone')"
+               [(ngModel)]="filterData.phone" placeholder="Search by Phone" class="p-column-filter">
+      </th>
+      <th>
+        <input pInputText type="text" (input)="onInputChange($event, 'contactOwnerEmail')"
+               [(ngModel)]="filterData.contactOwnerEmail" placeholder="Search by contact Owner" class="p-column-filter">
+      </th>
+        <th></th>
       </tr>
 
     </ng-template>
     <ng-template pTemplate="body" class="bodytable" let-contact>
       <tr>
-        <td> <button  class="pi pi-star"></button> </td>
+        <td>
+          <button class="pi pi-star"></button>
+        </td>
         <td>{{ contact.firstName }}</td>
         <td>{{ contact.lastName }}</td>
         <td>{{ contact.company }}</td>
-        <td>{{ contact.job }}</td>
+        <td>{{ contact.jobTitle }}</td>
         <td>{{ contact.email }}</td>
         <td>{{ contact.phone }}</td>
-        <td>{{ contact.contactOwner }}</td>
+        <td>{{ contact.contactOwnerEmail }}</td>
         <td>
-          <i  class="pi pi-pencil"></i>
+          <i class="pi pi-pencil"></i>
           <i (click)="showDeleteContactDialog(contact)" class="pi pi-trash"></i>
           <!-- delete contact modal :-->
-          <p-dialog header="Header" [(visible)]="displayDeleteContact" [breakpoints]="{'960px': '75vw'}" [style]="{width: '50vw'}"
+          <p-dialog header="Header" [(visible)]="displayDeleteContact" [breakpoints]="{'960px': '75vw'}"
+                    [style]="{width: '50vw'}"
                     [draggable]="false" [resizable]="true">
-            <p>Do you want to delete {{contactToDelete?.firstName}} {{contactToDelete?.lastName}}?</p>
+            <p>Do you want to delete {{ contactToDelete?.firstName }} {{ contactToDelete?.lastName }}?</p>
             <ng-template pTemplate="footer">
               <p-button (click)="displayDeleteContact=false" label="No" styleClass="p-button-text"></p-button>
               <p-button (click)="deleteContact()" label="Yes" styleClass="p-button-text"></p-button>
@@ -132,62 +147,67 @@
   </p-table>
 </div>
 
-<div><p-paginator [rows]="10" [totalRecords]="120" [rowsPerPageOptions]="[10,20,30]"></p-paginator></div>
+<div>
+  <p-paginator [rows]="10" [totalRecords]="120" [rowsPerPageOptions]="[10,20,30]"></p-paginator>
+</div>
 
 <!--Add contact modal :-->
-<p-dialog header="Add Contact" [(visible)]="displayAddContact" [modal]="true" [style]="{width: '50vw'}" [maximizable]="true"
+<p-dialog header="Add Contact" [(visible)]="displayAddContact" [modal]="true" [style]="{width: '50vw'}"
+          [maximizable]="true"
           [draggable]="false" [resizable]="false">
   <div class="p-fluid">
     <div class="p-field">
       <label for="firstName">First Name</label>
-      <input id="firstName" pInputText [(ngModel)]="newContact.firstName" />
+      <input id="firstName" pInputText [(ngModel)]="newContact.firstName"/>
     </div>
     <div class="p-field">
       <label for="lastName">Last Name</label>
-      <input id="lastName" pInputText [(ngModel)]="newContact.lastName" />
+      <input id="lastName" pInputText [(ngModel)]="newContact.lastName"/>
     </div>
     <div class="p-field">
       <label for="email">Email</label>
-      <input id="email" pInputText [(ngModel)]="newContact.email" />
+      <input id="email" pInputText [(ngModel)]="newContact.email"/>
     </div>
     <div class="p-field">
       <label for="phone">Phone</label>
-      <input id="phone" pInputText [(ngModel)]="newContact.phone" />
+      <input id="phone" pInputText [(ngModel)]="newContact.phone"/>
     </div>
     <div class="p-field">
       <label for="company">Company</label>
-      <input id="company" pInputText [(ngModel)]="newContact.company" />
+      <input id="company" pInputText [(ngModel)]="newContact.company"/>
     </div>
     <div class="p-field">
       <label for="jobTitle">Job Title</label>
-      <input id="jobTitle" pInputText [(ngModel)]="newContact.jobTitle" />
+      <input id="jobTitle" pInputText [(ngModel)]="newContact.jobTitle"/>
     </div>
 
     <!-- Address Fields -->
     <h3>Address Details</h3>
     <div class="p-field">
       <label for="address">Street Address</label>
-      <input id="address" pInputText [(ngModel)]="newAddress.address" />
+      <input id="address" pInputText [(ngModel)]="newAddress.address"/>
     </div>
     <div class="p-field">
       <label for="city">City</label>
-      <input id="city" pInputText [(ngModel)]="newAddress.city" />
+      <input id="city" pInputText [(ngModel)]="newAddress.city"/>
     </div>
     <div class="p-field">
       <label for="state">State</label>
-      <input id="state" pInputText [(ngModel)]="newAddress.state" />
+      <input id="state" pInputText [(ngModel)]="newAddress.state"/>
     </div>
     <div class="p-field">
       <label for="country">Country</label>
-      <input id="country" pInputText [(ngModel)]="newAddress.country" />
+      <input id="country" pInputText [(ngModel)]="newAddress.country"/>
     </div>
     <div class="p-field">
       <label for="zipCode">Zip Code</label>
-      <input id="zipCode" pInputText [(ngModel)]="newAddress.zipCode" />
+      <input id="zipCode" pInputText [(ngModel)]="newAddress.zipCode"/>
     </div>
     <p-footer>
-      <button pButton class="headerbutton p-button-rounded" type="button" label="Save contact" (click)="saveContact()"></button>
-      <button pButton class="headerbutton p-button-rounded" type="button" label="Cancel" (click)="closeDialog()"></button>
+      <button pButton class="headerbutton p-button-rounded" type="button" label="Save contact"
+              (click)="saveContact()"></button>
+      <button pButton class="headerbutton p-button-rounded" type="button" label="Cancel"
+              (click)="closeDialog()"></button>
     </p-footer>
 
   </div>

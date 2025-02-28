@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Table} from "primeng/table";
 import {ContactService} from "../../services/contact/contact.service";
 import {Contact} from "../../models/contact/contact";
@@ -18,7 +18,16 @@ export class ContactComponent implements OnInit {
   newContact: Contact = {} as Contact;
   newAddress: Address = {} as Address;
   contactToDelete: Contact | null = null;
-
+  filterData: any = {
+    firstName: '',
+    lastName: '',
+    company: '',
+    jobTitle: '',
+    email: '',
+    phone: '',
+    contactOwnerEmail: ''
+  };
+  @ViewChild('dt1') dt1: Table | undefined; // Reference to the table component
 
   constructor(private contactService: ContactService) {
   }
@@ -61,27 +70,26 @@ export class ContactComponent implements OnInit {
   // Save the new contact to the server and update the list
   saveContact() {
     this.newContact.addressContact = this.newAddress;
-    //this.newContact.contactOwnerEmail = '';
     this.contactService.createContact(this.newContact).subscribe(
       (contact) => {
         this.contacts.push(contact);  // Add the newly created contact to the list
-        console.warn(contact);
         this.closeDialog();  // Close the modal dialog
-
+        window.location.reload();
       },
       (error) => {
         console.error('Error saving contact:', error);
       }
     );
   }
+
   deleteContact() {
     if (this.contactToDelete) {
       this.contactService.deleteContactByEmail(this.contactToDelete.email).subscribe(
         (response) => {
           console.warn(response);  // Response after successful deletion
-          // Remove the contact from the list locally after deletion
-          //this.contacts = this.contacts.filter(contact => contact.email !== this.contactToDelete?.email);
           this.closeDialog();  // Close the modal
+          window.location.reload();
+
         },
         (error) => {
           console.error('Error deleting contact:', error);
@@ -90,6 +98,52 @@ export class ContactComponent implements OnInit {
     }
   }
 
+  clearFilter() {
+    // Reset the filter data for all fields dynamically
+    for (let key in this.filterData) {
+      if (this.filterData.hasOwnProperty(key)) {
+        this.filterData[key] = '';
+        if (this.dt1) {
+          this.dt1.filter('', key, 'contains'); // Clears the filter for each field dynamically
+        }
+      }
+      this.dt1?.reset();
+      window.location.reload();
+    }
+  }
+
+
+  onInputChange(event: any, field: string): void {
+    const value = event.target.value;
+    this.dt1?.filter(value, field, 'contains');
+  }
+
+
+  onInputSearch(event: any): void {
+    const value = event.target.value.trim(); // Trim spaces for cleaner input
+
+    if (value === '') {
+      // If input is empty, reload all contacts
+      this.contactService.getAllContacts().subscribe({
+        next: (data) => {
+          this.contacts = data; // Restore the full list
+        },
+        error: (err) => {
+          console.error('Error fetching all contacts:', err);
+        }
+      });
+    } else {
+      // Perform filtering when there's input
+      this.contactService.filterContactsByValue(value).subscribe({
+        next: (data) => {
+          this.contacts = data; // Update the list with filtered results
+        },
+        error: (err) => {
+          console.error('Error filtering contacts:', err);
+        }
+      });
+    }
+  }
 
 
 }

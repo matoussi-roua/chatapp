@@ -3,6 +3,7 @@ import {GlobalService} from "../global/global.service";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Contact} from "../../models/contact/contact";
+import {Activity} from "../../models/activity/activity";
 
 @Injectable({
   providedIn: 'root'
@@ -45,5 +46,9 @@ export class ContactService extends GlobalService {
     if (jobTitle) params = params.set('jobTitle', jobTitle);
 
     return this.http.get<Contact[]>(`${this.baseUrl}/filter`, { params });
+  }
+
+  filterContactsByValue(value: string): Observable<Contact[]> {
+    return this.http.get<Contact[]>(`${this.baseUrl}/filter/${value}`);
   }
 }

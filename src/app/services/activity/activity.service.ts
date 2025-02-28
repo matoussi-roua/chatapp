@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {GlobalService} from "../global/global.service";
 import {Observable} from "rxjs";
 import {Activity} from "../../models/activity/activity";
@@ -8,7 +8,8 @@ import {Activity} from "../../models/activity/activity";
   providedIn: 'root'
 })
 export class ActivityService extends GlobalService {
-  private baseUrl = this.getAuthUrl()+'/activity';
+  private baseUrl = this.getAuthUrl() + '/activity';
+
   constructor(private http: HttpClient) {
     super();
   }
@@ -47,9 +48,24 @@ export class ActivityService extends GlobalService {
   removeParticipantsFromActivity(idActivity: number, emails: string[]): Observable<Activity> {
     return this.http.put<Activity>(`${this.baseUrl}/remove/participants/${idActivity}`, emails);
   }
+
 // Delete an activity and expect a plain text response
   deleteActivity(idActivity: number): Observable<string> {
-    return this.http.delete(`${this.baseUrl}/delete/${idActivity}`, { responseType: 'text' });
+    return this.http.delete(`${this.baseUrl}/delete/${idActivity}`, {responseType: 'text'});
   }
 
+  // Filter contacts
+  filterActivities(date?: string, type?: string, subject?: string, note?: string): Observable<Activity[]> {
+    let params = new HttpParams();
+    if (date) params = params.set('date', date);
+    if (type) params = params.set('type', type);
+    if (subject) params = params.set('email', subject);
+    if (note) params = params.set('phone', note);
+    return this.http.get<Activity[]>(`${this.baseUrl}/filter`, {params});
+
+  }
+
+  filterActivitiesByValue(value: string): Observable<Activity[]> {
+    return this.http.get<Activity[]>(`${this.baseUrl}/filter/${value}`);
+  }
 }

@@ -99,4 +99,6 @@ p-footer{
 input {
   width: 100%; /* Make all inputs take full width of their parent */
 }
-
+.p-dialog-header-close {
+  display: none;
+}

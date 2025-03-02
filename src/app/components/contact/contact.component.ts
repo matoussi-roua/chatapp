@@ -3,6 +3,7 @@ import {Table} from "primeng/table";
 import {ContactService} from "../../services/contact/contact.service";
 import {Contact} from "../../models/contact/contact";
 import {Address} from "../../models/address/address";
+import {Activity} from "../../models/activity/activity";
 
 @Component({
   selector: 'app-contact',
@@ -17,6 +18,8 @@ export class ContactComponent implements OnInit {
   displayDeleteContact: boolean = false;
   newContact: Contact = {} as Contact;
   newAddress: Address = {} as Address;
+  contactToEdit: Contact = {} as Contact;
+  addressToEdit: Address = {} as Address;
   contactToDelete: Contact | null = null;
   filterData: any = {
     firstName: '',
@@ -28,6 +31,7 @@ export class ContactComponent implements OnInit {
     contactOwnerEmail: ''
   };
   @ViewChild('dt1') dt1: Table | undefined; // Reference to the table component
+  displayEditContact: boolean = false;
 
   constructor(private contactService: ContactService) {
   }
@@ -52,6 +56,7 @@ export class ContactComponent implements OnInit {
   closeDialog() {
     this.displayAddContact = false;// Set display to false to close the modal
     this.displayDeleteContact = false;
+    this.displayEditContact = false;
     this.newContact = {} as Contact;
     this.newAddress = {} as Address;
     window.location.reload(); // Reload the page after successful deletion
@@ -146,5 +151,39 @@ export class ContactComponent implements OnInit {
   }
 
 
+  EditContact() { console.log("after: ",this.contactToEdit);
+    console.log("Editing activity");
+    this.contactService.updateContact(this.contactToEdit).subscribe({
+      next: (response) => {
+        console.log("update Successful!", response);
+        this.displayEditContact = false;
+        this.contactToEdit = {} as Activity;
+        window.location.reload(); // Reload the page after successful deletion
+      },error: (error) => {
+        if (error.status === 400 && error.error.errors) {
+          this.errorMessage = error.error.errors[0];  // Show validation error message
+        } else {
+          this.errorMessage = 'An unexpected error occurred. Please try again.';
+        }
+      }
+
+    })
+
+  }
+
+  showEditContactDialog(contact: Contact) {
+    this.displayEditContact = true;
+
+    // Fetch fresh data from the database if needed
+    this.contactService.getContactById(contact.id).subscribe({
+      next: (freshContact) => {
+        this.contactToEdit = { ...freshContact }; // Assign a fresh copy of the data
+        console.log("Loaded activity:", this.contactToEdit);
+      },
+      error: (error) => {
+        console.error('Error fetching activity:', error);
+      }
+    });
+  }
 }
 

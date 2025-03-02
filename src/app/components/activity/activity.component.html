@@ -140,7 +140,7 @@
         <td>{{ Activity.subject }}</td>
         <td>{{ Activity.note }}</td>
         <td>
-          <i class="pi pi-pencil"></i>
+          <i (click)="showEditActivityDialog(Activity)" class="pi pi-pencil"></i>
           <i (click)="showDeleteActivityDialog(Activity)" class="pi pi-trash"></i>
           <p-dialog header="Header" [(visible)]="displayDeleteActivity" [breakpoints]="{'960px': '75vw'}"
                     [style]="{width: '50vw'}" [draggable]="false" [resizable]="true">
@@ -157,56 +157,49 @@
   </p-table>
 </div>
 <!-- Edit activity modal -->
+<p-dialog header="Edit Activity" [(visible)]="displayEditActivity" [modal]="true" [style]="{width: '50vw'}"
+          [maximizable]="true"
+          [draggable]="false" [resizable]="false">
+  <div class="p-fluid">
+    <div class="p-field">
+      <label for="newdate">Date<span class="required">*</span></label>
+      <p-calendar id="newdate" class="input" [(ngModel)]="activityToEdit.date" dateFormat="yy-mm-dd"></p-calendar>
 
-<!--<p-dialog header="Edit Activity" [(visible)]="displayEditActivity" [modal]="true" [style]="{width: '50vw'}"-->
-<!--          [maximizable]="true" [draggable]="false" [resizable]="false">-->
-<!--  <div class="p-fluid">-->
-<!--    <div class="p-field">-->
-<!--      <label for="date">Date<span class="required">*</span></label>-->
-<!--      <p-calendar id="date" class="input" [(ngModel)]="newActivity.date" dateFormat="yy-mm-dd"-->
-<!--                  [placeholder]="existingActivity?.date"></p-calendar>-->
-<!--    </div>-->
+    </div>
+    <div class="p-field">
+      <label for="newtype">Type<span class="required">*</span></label>
+      <input class="input" id="newtype" pInputText [(ngModel)]="activityToEdit.type"/>
 
-<!--    <div class="p-field">-->
-<!--      <label for="type">Type<span class="required">*</span></label>-->
-<!--      <input class="input" id="type" pInputText [(ngModel)]="newActivity.type"-->
-<!--             [placeholder]="existingActivity?.type"/>-->
-<!--    </div>-->
+    </div>
+    <div class="p-field">
+      <label for="newparticipants">Participants</label>
+      <!--      <input class="input" id="participants" (change)="updateParticipants()" pInputText-->
+      <!--             [(ngModel)]="activityToEdit.participantEmails"/>-->
+      <input class="input" id="newparticipants" pInputText [(ngModel)]="participantsInput" (input)="updateParticipants()"/>
 
-<!--    <div class="p-field">-->
-<!--      <label for="participants">Participants</label>-->
-<!--      <input class="input" id="participants" pInputText [(ngModel)]="participantsInput"-->
-<!--             (input)="updateParticipants()" [placeholder]="existingActivity?.participantEmails"/>-->
-<!--    </div>-->
+    </div>
+    <div class="p-field">
+      <label for="newsubject">Subject</label>
+      <input class="input" id="newsubject" pInputText [(ngModel)]="activityToEdit.subject"/>
+    </div>
+    <div class="p-field">
+      <label for="newnote">Notes</label>
+      <input class="input" id="newnote" pInputText [(ngModel)]="activityToEdit.note"/>
+    </div>
+    <div class="p-field">
+      <label for="newdocuments">Documents</label>
+      <input class="input" id="newdocuments" pInputText [(ngModel)]="activityToEdit.documents"/>
+    </div>
 
-<!--    <div class="p-field">-->
-<!--      <label for="subject">Subject</label>-->
-<!--      <input class="input" id="subject" pInputText [(ngModel)]="newActivity.subject"-->
-<!--             [placeholder]="existingActivity?.subject"/>-->
-<!--    </div>-->
+    <p-footer>
+      <button pButton class="headerbutton p-button-rounded" type="button" label="Edit Activity"
+              (click)="EditActivity()"></button>
+      <button pButton class="headerbutton p-button-rounded" type="button" label="Cancel"
+              (click)="closeDialog()"></button>
+    </p-footer>
 
-<!--    <div class="p-field">-->
-<!--      <label for="note">Notes</label>-->
-<!--      <input class="input" id="note" pInputText [(ngModel)]="newActivity.note"-->
-<!--             [placeholder]="existingActivity?.note"/>-->
-<!--    </div>-->
-
-<!--    <div class="p-field">-->
-<!--      <label for="documents">Documents</label>-->
-<!--      <input class="input" id="documents" pInputText [(ngModel)]="newActivity.documents"-->
-<!--             [placeholder]="existingActivity?.documents"/>-->
-<!--    </div>-->
-
-<!--    <p-footer>-->
-<!--      <button pButton class="headerbutton p-button-rounded" type="button" label="Save Activity"-->
-<!--              (click)="saveActivity()"></button>-->
-<!--      <button pButton class="headerbutton p-button-rounded" type="button" label="Cancel"-->
-<!--              (click)="closeDialog()"></button>-->
-<!--    </p-footer>-->
-<!--  </div>-->
-
-<!--  <ng-template pTemplate="footer">-->
-<!--    <p class="required">{{ errorMessage }}</p>-->
-<!--  </ng-template>-->
-<!--</p-dialog>-->
-
+  </div>
+  <ng-template pTemplate="footer">
+    <p class="required">{{ errorMessage }}</p>
+  </ng-template>
+</p-dialog>

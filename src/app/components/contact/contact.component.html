@@ -127,7 +127,7 @@
         <td>{{ contact.phone }}</td>
         <td>{{ contact.contactOwnerEmail }}</td>
         <td>
-          <i class="pi pi-pencil"></i>
+          <i (click)="showEditContactDialog(contact)" class="pi pi-pencil"></i>
           <i (click)="showDeleteContactDialog(contact)" class="pi pi-trash"></i>
           <!-- delete contact modal :-->
           <p-dialog header="Header" [(visible)]="displayDeleteContact" [breakpoints]="{'960px': '75vw'}"
@@ -153,6 +153,69 @@
 </div>
 
 <!--Add contact modal :-->
+<p-dialog header="Add Contact" [(visible)]="displayEditContact" [modal]="true" [style]="{width: '50vw'}"
+          [maximizable]="true"
+          [draggable]="false" [resizable]="false">
+  <div class="p-fluid">
+    <div class="p-field">
+      <label for="newfirstName">First Name</label>
+      <input id="newfirstName" pInputText [(ngModel)]="contactToEdit.firstName"/>
+    </div>
+    <div class="p-field">
+      <label for="newlastName">Last Name</label>
+      <input id="newlastName" pInputText [(ngModel)]="contactToEdit.lastName"/>
+    </div>
+    <div class="p-field">
+      <label for="newemail">Email</label>
+      <input id="newemail" pInputText [(ngModel)]="contactToEdit.email"/>
+    </div>
+    <div class="p-field">
+      <label for="newphone">Phone</label>
+      <input id="newphone" pInputText [(ngModel)]="contactToEdit.phone"/>
+    </div>
+    <div class="p-field">
+      <label for="newcompany">Company</label>
+      <input id="newcompany" pInputText [(ngModel)]="contactToEdit.company"/>
+    </div>
+    <div class="p-field">
+      <label for="newjobTitle">Job Title</label>
+      <input id="newjobTitle" pInputText [(ngModel)]="contactToEdit.jobTitle"/>
+    </div>
+
+    <!-- Address Fields -->
+    <h3>Address Details</h3>
+    <div class="p-field">
+      <label for="newaddress">Street Address</label>
+      <input id="newaddress" pInputText [(ngModel)]="addressToEdit.address"/>
+    </div>
+    <div class="p-field">
+      <label for="newcity">City</label>
+      <input id="newcity" pInputText [(ngModel)]="addressToEdit.city"/>
+    </div>
+    <div class="p-field">
+      <label for="newstate">State</label>
+      <input id="newstate" pInputText [(ngModel)]="addressToEdit.state"/>
+    </div>
+    <div class="p-field">
+      <label for="newcountry">Country</label>
+      <input id="newcountry" pInputText [(ngModel)]="addressToEdit.country"/>
+    </div>
+    <div class="p-field">
+      <label for="newzipCode">Zip Code</label>
+      <input id="newzipCode" pInputText [(ngModel)]="addressToEdit.zipCode"/>
+    </div>
+    <p-footer>
+      <button pButton class="headerbutton p-button-rounded" type="button" label="Edit contact"
+              (click)="EditContact()"></button>
+      <button pButton class="headerbutton p-button-rounded" type="button" label="Cancel"
+              (click)="closeDialog()"></button>
+    </p-footer>
+
+  </div>
+  <ng-template pTemplate="footer">
+    <p-button icon="pi pi-check" (click)="displayAddContact=false" label="Ok" styleClass="p-button-text"></p-button>
+  </ng-template>
+</p-dialog><!--Add contact modal :-->
 <p-dialog header="Add Contact" [(visible)]="displayAddContact" [modal]="true" [style]="{width: '50vw'}"
           [maximizable]="true"
           [draggable]="false" [resizable]="false">

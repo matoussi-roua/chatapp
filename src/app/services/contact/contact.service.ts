@@ -51,4 +51,9 @@ export class ContactService extends GlobalService {
   filterContactsByValue(value: string): Observable<Contact[]> {
     return this.http.get<Contact[]>(`${this.baseUrl}/filter/${value}`);
   }
+
+  // Get contact by email
+  getContactByEmail(email: string): Observable<Contact> {
+    return this.http.get<Contact>(`${this.baseUrl}/${email}`);
+  }
 }

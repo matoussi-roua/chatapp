@@ -3,7 +3,7 @@
     <p><b>Contacts list</b></p>
   </div>
   <div>
-    <button pButton type="button" class="headerbutton p-button-rounded">Add Activity</button>
+    <button (click)="navigateToActivity()" pButton type="button" class="headerbutton p-button-rounded">Add Activity</button>
     <button pButton (click)="showAddContactDialog()" type="button" class="headerbutton p-button-rounded">Add Contact
     </button>
   </div>
@@ -180,6 +180,10 @@
     <div class="p-field">
       <label for="newjobTitle">Job Title</label>
       <input id="newjobTitle" pInputText [(ngModel)]="contactToEdit.jobTitle"/>
+    </div>
+    <div class="p-field">
+      <label for="contactOwnerEmail">contact Owner Email</label>
+      <input id="contactOwnerEmail" pInputText [(ngModel)]="contactToEdit.contactOwnerEmail"/>
     </div>
 
     <!-- Address Fields -->

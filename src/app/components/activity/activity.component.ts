@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {Activity} from "../../models/activity/activity";
 import {Table} from "primeng/table";
 import {ActivityService} from "../../services/activity/activity.service";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-activity',
@@ -29,7 +30,7 @@ export class ActivityComponent implements OnInit {
   displayEditActivity: boolean = false;
   existingActivity: Activity = {} as Activity;
 
-  constructor(private activityService: ActivityService) {
+  constructor(private activityService: ActivityService,private route:ActivatedRoute) {
   }
 
   ngOnInit(): void {
@@ -44,6 +45,11 @@ export class ActivityComponent implements OnInit {
     if (this.displayEditActivity == false) {
       this.activityToEdit = {} as Activity;
     }
+    this.route.queryParams.subscribe(params => {
+      if (params['openModal'] === 'true') {
+        this.showAddActivityDialog();
+      }
+    });
   }
 
   showAddActivityDialog() {

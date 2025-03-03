@@ -4,6 +4,7 @@ import {ContactService} from "../../services/contact/contact.service";
 import {Contact} from "../../models/contact/contact";
 import {Address} from "../../models/address/address";
 import {Activity} from "../../models/activity/activity";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-contact',
@@ -21,6 +22,7 @@ export class ContactComponent implements OnInit {
   contactToEdit: Contact = {} as Contact;
   addressToEdit: Address = {} as Address;
   contactToDelete: Contact | null = null;
+  errorMessage: string = '';
   filterData: any = {
     firstName: '',
     lastName: '',
@@ -33,7 +35,7 @@ export class ContactComponent implements OnInit {
   @ViewChild('dt1') dt1: Table | undefined; // Reference to the table component
   displayEditContact: boolean = false;
 
-  constructor(private contactService: ContactService) {
+  constructor(private contactService: ContactService,private router:Router) {
   }
 
   ngOnInit(): void {
@@ -59,6 +61,8 @@ export class ContactComponent implements OnInit {
     this.displayEditContact = false;
     this.newContact = {} as Contact;
     this.newAddress = {} as Address;
+    this.contactToEdit = {} as Contact;
+    this.addressToEdit = {} as Address;
     window.location.reload(); // Reload the page after successful deletion
 
   }
@@ -151,13 +155,17 @@ export class ContactComponent implements OnInit {
   }
 
 
-  EditContact() { console.log("after: ",this.contactToEdit);
-    console.log("Editing activity");
+  EditContact() {
+    console.log("after: ",this.contactToEdit);
+    console.log("Editing contact");
+    this.contactToEdit.addressContact = this.addressToEdit;
+    console.log(this.contactToEdit);
     this.contactService.updateContact(this.contactToEdit).subscribe({
       next: (response) => {
         console.log("update Successful!", response);
         this.displayEditContact = false;
-        this.contactToEdit = {} as Activity;
+        this.contactToEdit = {} as Contact;
+        this.addressToEdit = {} as Address;
         window.location.reload(); // Reload the page after successful deletion
       },error: (error) => {
         if (error.status === 400 && error.error.errors) {
@@ -175,15 +183,20 @@ export class ContactComponent implements OnInit {
     this.displayEditContact = true;
 
     // Fetch fresh data from the database if needed
-    this.contactService.getContactById(contact.id).subscribe({
+    this.contactService.getContactByEmail(contact.email).subscribe({
       next: (freshContact) => {
         this.contactToEdit = { ...freshContact }; // Assign a fresh copy of the data
-        console.log("Loaded activity:", this.contactToEdit);
+        this.addressToEdit = this.contactToEdit.addressContact;
+        console.log("Loaded contact:", this.contactToEdit);
       },
       error: (error) => {
-        console.error('Error fetching activity:', error);
+        console.error('Error fetching contact:', error);
       }
     });
+  }
+
+  navigateToActivity() {
+    this.router.navigate(['/activity'], { queryParams: { openModal: 'true' } });
   }
 }
 
